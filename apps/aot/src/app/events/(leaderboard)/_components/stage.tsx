@@ -22,7 +22,7 @@ import {
   type PerspectiveCamera as PerspectiveCameraType,
 } from 'three';
 
-// TODO: Test this page.
+// TODO-UPGRADE: Test this page.
 declare module '@react-three/fiber' {
   interface ThreeElements {
     roundedPlaneGeometry: ThreeElement<typeof RoundedPlaneGeometry>;
