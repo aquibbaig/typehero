@@ -1,7 +1,9 @@
 'use client';
-import * as React from 'react';
-import { Input } from '@repo/ui/components/input';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { cn } from '@repo/ui/cn';
 import { Button } from '@repo/ui/components/button';
+import { Calendar } from '@repo/ui/components/calendar';
+import { Checkbox } from '@repo/ui/components/checkbox';
 import {
   Form,
   FormControl,
@@ -11,18 +13,16 @@ import {
   FormLabel,
   FormMessage,
 } from '@repo/ui/components/form';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { Input } from '@repo/ui/components/input';
+import { Popover, PopoverContent, PopoverTrigger } from '@repo/ui/components/popover';
+import { useToast } from '@repo/ui/components/use-toast';
+import { Calendar as CalendarIcon, Clipboard, ExternalLink } from '@repo/ui/icons';
+import { format } from 'date-fns';
+import * as React from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { useToast } from '@repo/ui/components/use-toast';
-import { createShortURLWithSlug } from '../_actions/create-url-with-slug';
 import { createShortURL } from '../_actions/create-url';
-import { Clipboard, ExternalLink, Calendar as CalendarIcon } from '@repo/ui/icons';
-import { format } from 'date-fns';
-import { cn } from '@repo/ui/cn';
-import { Calendar } from '@repo/ui/components/calendar';
-import { Popover, PopoverContent, PopoverTrigger } from '@repo/ui/components/popover';
-import { Checkbox } from '@repo/ui/components/checkbox';
+import { createShortURLWithSlug } from '../_actions/create-url-with-slug';
 import { ONE_YEAR, THREE_MONTHS } from '../_actions/increment-time';
 
 const FormSchema = z.object({
@@ -184,7 +184,7 @@ export function URLShortenerForm() {
                     mode="single"
                     selected={field.value}
                     onSelect={field.onChange}
-                    disabled={(date) =>
+                    disabled={(date: Date) =>
                       date < new Date() || date > new Date(Date.now() + ONE_YEAR * 2)
                     }
                     initialFocus

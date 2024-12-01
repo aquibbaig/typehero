@@ -1,14 +1,21 @@
 import { DialogClose } from '@radix-ui/react-dialog';
 import type { Challenge } from '@repo/db/types';
 import { DifficultyBadge } from '@repo/ui/components/difficulty-badge';
-import Link from 'next/link';
-import { Highlight } from 'react-instantsearch';
-import { SearchBoxContextProvider, useSearchBox } from './searchbox.context';
-import { useSearchResult, useSearchStatus, type Result } from './search-provider';
-import { useRecentSearchesStorage } from './use-recent-searches-storage';
-import { Text } from '@repo/ui/components/typography/typography';
-import { SearchIcon, Loader2 as LoaderIcon, X as XIcon } from '@repo/ui/icons';
 import { ScrollArea, ScrollBar } from '@repo/ui/components/scroll-area';
+import { Text } from '@repo/ui/components/typography/typography';
+import { Loader2 as LoaderIcon, SearchIcon, X as XIcon } from '@repo/ui/icons';
+import Link from 'next/link';
+import type { ReactNode } from 'react';
+import { Highlight, type HighlightProps } from 'react-instantsearch';
+import { useSearchResult, useSearchStatus, type Result } from './search-provider';
+import { SearchBoxContextProvider, useSearchBox } from './searchbox.context';
+import { useRecentSearchesStorage } from './use-recent-searches-storage';
+
+// TODO-UPGRADE:temporary-fix -- the library is not supported to run with React 19:
+// ref: https://github.com/algolia/instantsearch/issues/6409
+declare module 'react-instantsearch' {
+  export function Highlight(props: HighlightProps<any>): ReactNode;
+}
 
 function useRecentSearches() {
   return useRecentSearchesStorage();

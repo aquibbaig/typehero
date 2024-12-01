@@ -3,7 +3,7 @@ import * as React from 'react';
 import type { Challenge } from '@repo/db/types';
 import algoliasearch from 'algoliasearch/lite';
 import { useHits, useInstantSearch, useSearchBox } from 'react-instantsearch';
-import { InstantSearchNext } from 'react-instantsearch-nextjs';
+import { InstantSearchNext, type InstantSearchNextProps } from 'react-instantsearch-nextjs';
 
 const searchClient = algoliasearch(
   // eslint-disable-next-line @typescript-eslint/dot-notation
@@ -13,6 +13,12 @@ const searchClient = algoliasearch(
 );
 
 const INDEX_NAME = 'typehero';
+
+// TODO-UPGRADE:temporary-fix -- the library is not supported to run with React 19:
+// ref: https://github.com/algolia/instantsearch/issues/6409
+declare module 'react-instantsearch-nextjs' {
+  export function InstantSearchNext(props: InstantSearchNextProps<any>): React.ReactNode;
+}
 
 export function SearchProvider({ children }: { children: React.ReactNode }) {
   return (
