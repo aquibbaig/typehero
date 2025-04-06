@@ -22,6 +22,11 @@ const DEFAULT_OPTIONS = {
   fontSize: 16,
 } as const satisfies EditorProps['options'];
 
+/**
+ * editorProps -> monaco is coming from monaco_editor/editor.api
+ *
+ * but ours is coming from monaco_editor
+ */
 export type CodeEditorProps = Omit<EditorProps, 'theme'>;
 
 export function CodeEditor({ onChange, onMount, options, value, ...props }: CodeEditorProps) {
