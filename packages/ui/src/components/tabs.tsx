@@ -1,7 +1,7 @@
 'use client';
 
-import * as React from 'react';
 import * as TabsPrimitive from '@radix-ui/react-tabs';
+import * as React from 'react';
 import { cn } from '../cn';
 
 const Tabs = TabsPrimitive.Root;
@@ -91,10 +91,10 @@ VerticalTabsContent.displayName = TabsPrimitive.Content.displayName;
 
 export {
   Tabs,
-  TabsList,
-  VerticalTabsList,
-  TabsTrigger,
-  VerticalTabsTrigger,
   TabsContent,
+  TabsList,
+  TabsTrigger,
   VerticalTabsContent,
+  VerticalTabsList,
+  VerticalTabsTrigger,
 };

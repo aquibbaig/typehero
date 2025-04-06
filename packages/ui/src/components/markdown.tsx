@@ -2,7 +2,7 @@
 
 import clsx from 'clsx';
 import { useTheme } from 'next-themes';
-import { useState } from 'react';
+import { useState, type Ref } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import rehypeRaw from 'rehype-raw';
@@ -99,8 +99,8 @@ export function Markdown({
             <div className="relative">
               {!disableCopy ? <CopyButton text={String(children).replace(/\n$/, '')} /> : null}
               <SyntaxHighlighter
-                ref={ref as React.Ref<SyntaxHighlighter> | undefined}
-                PreTag="section" // parent tag
+                ref={ref as Ref<SyntaxHighlighter> | undefined}
+                PreTag={'section' as any} // parent tag
                 className={clsx(className, 'rounded-xl dark:rounded-md')}
                 language={match[1]}
                 style={syntaxHighlighterTheme} // theme
