@@ -8,7 +8,7 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import rehypeRaw from 'rehype-raw';
 import rehypeSanitize from 'rehype-sanitize';
 import remarkGfm from 'remark-gfm';
-import type { Transformer } from 'unified';
+import type { Plugin } from 'unified';
 import { SKIP, visit, type BuildVisitor } from 'unist-util-visit';
 import { Check, Copy } from '../icons';
 import { vs } from '../themes/vs';
@@ -22,7 +22,7 @@ const HTML_COMMENT_REGEX = new RegExp('<!--([\\s\\S]*?)-->', 'g');
 /**
  * Remove HTML comments from Markdown
  */
-function removeHtmlComments(): Transformer {
+function removeHtmlComments(): Plugin {
   return (tree) => {
     // TODO: PRs are welcomed to fix the any type
     // eslint-disable-next-line
@@ -93,12 +93,13 @@ export function Markdown({
             {...props}
           />
         ),
-        code({ inline, className, children, style: _, ...props }) {
+        code({ className, children, style: _, ref, ...props }) {
           const match = /language-(\w+)/.exec(className || '');
-          return !inline && match ? (
+          return match ? (
             <div className="relative">
               {!disableCopy ? <CopyButton text={String(children).replace(/\n$/, '')} /> : null}
               <SyntaxHighlighter
+                ref={ref as React.Ref<SyntaxHighlighter> | undefined}
                 PreTag="section" // parent tag
                 className={clsx(className, 'rounded-xl dark:rounded-md')}
                 language={match[1]}
